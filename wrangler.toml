@@ -1,0 +1,6 @@
+name = "10nz-tools"
+compatibility_date = "2023-06-14"
+pages_build_output_dir = "./dist"
+
+# Local development variables are in .dev.vars
+# Production variables should be set in Cloudflare Pages dashboard
