@@ -21,6 +21,7 @@ interface Tool {
   route: string;
   color: string;
   status: 'active' | 'coming-soon';
+  external?: boolean;
 }
 
 export const ToolsGrid: React.FC = () => {
@@ -99,11 +100,24 @@ export const ToolsGrid: React.FC = () => {
       color: '#52c41a',
       status: 'active',
     },
+    {
+      title: 'Operations Management',
+      description: 'Comprehensive operations management system for tracking projects, tasks, and team collaboration.',
+      icon: <BarChartOutlined style={{ fontSize: '24px' }} />,
+      route: 'https://ops.10nz.tools',
+      color: '#1890ff',
+      status: 'active',
+      external: true,
+    },
   ];
 
   const handleToolClick = (tool: Tool) => {
     if (tool.status === 'active') {
-      navigate(tool.route);
+      if (tool.external) {
+        window.open(tool.route, '_blank');
+      } else {
+        navigate(tool.route);
+      }
     }
   };
 
