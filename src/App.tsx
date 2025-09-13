@@ -130,6 +130,15 @@ function App() {
                 />
               </Route>
               <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/equity-calculator" element={
+                <div style={{ width: '100%', height: '100vh' }}>
+                  <iframe
+                    src="/equity-calculator/index.html"
+                    style={{ width: '100%', height: '100%', border: 'none' }}
+                    title="Equity Calculator"
+                  />
+                </div>
+              } />
             </Route>
             <Route
               element={

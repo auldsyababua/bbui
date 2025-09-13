@@ -91,6 +91,14 @@ export const ToolsGrid: React.FC = () => {
       color: '#f5222d',
       status: 'coming-soon',
     },
+    {
+      title: 'Equity Calculator',
+      description: 'Calculate monthly distributions based on petahash rate and ownership percentage for 10NetZero shareholders.',
+      icon: <DollarOutlined style={{ fontSize: '24px' }} />,
+      route: '/equity-calculator',
+      color: '#52c41a',
+      status: 'active',
+    },
   ];
 
   const handleToolClick = (tool: Tool) => {
