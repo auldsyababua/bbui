@@ -99,7 +99,6 @@ export const ToolsGrid: React.FC = () => {
       route: '/equity-calculator/index.html',
       color: '#52c41a',
       status: 'active',
-      external: true,
     },
     {
       title: 'Operations Management',
