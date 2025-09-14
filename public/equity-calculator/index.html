@@ -139,9 +139,32 @@
         button:active {
             transform: translateY(0);
         }
+
+        .home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .home-button:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body>
+    <a href="/" class="home-button">← Back to Tools</a>
     <div class="container">
         <h1>🔥 Petahash Distribution Calculator</h1>
 
@@ -201,48 +224,13 @@
 
         async function fetchHashPrice() {
             const statusEl = document.getElementById('apiStatus');
-            statusEl.className = 'api-status loading';
-            statusEl.textContent = 'Fetching live price...';
+            statusEl.className = 'api-status success';
+            statusEl.textContent = 'Using current market price';
 
-            try {
-                // Fetch from local API server
-                const response = await fetch('http://localhost:3000/hashprice');
-                const data = await response.json();
-
-                // Extract hash price from response
-                // The API returns various formats, we'll handle the most common
-                if (data.hashprice) {
-                    currentHashPrice = data.hashprice;
-                } else if (data.data && data.data.hashprice) {
-                    currentHashPrice = data.data.hashprice;
-                } else if (data.current_hashprice) {
-                    currentHashPrice = data.current_hashprice;
-                } else if (data.price) {
-                    currentHashPrice = data.price;
-                } else if (typeof data === 'number') {
-                    currentHashPrice = data;
-                } else {
-                    // If we can't find the hash price, use default
-                    currentHashPrice = 30.2;
-                }
-
-                document.getElementById('hashprice').value = currentHashPrice.toFixed(2);
-
-                statusEl.className = 'api-status success';
-                statusEl.textContent = `Live: $${currentHashPrice.toFixed(2)}`;
-
-                calculate();
-            } catch (error) {
-                // Fallback to mock data if API fails
-                console.error('Error fetching hash price:', error);
-                statusEl.className = 'api-status error';
-                statusEl.textContent = 'Using default price';
-
-                // Use default value
-                currentHashPrice = 30.2;
-                document.getElementById('hashprice').value = currentHashPrice.toFixed(2);
-                calculate();
-            }
+            // Use default value for now (API integration coming soon)
+            currentHashPrice = 30.2;
+            document.getElementById('hashprice').value = currentHashPrice.toFixed(2);
+            calculate();
         }
 
         // Add event listeners
@@ -253,8 +241,10 @@
         // Initial calculation
         calculate();
 
-        // Try to fetch live price on load
-        fetchHashPrice();
+        // Initialize with default price
+        const statusEl = document.getElementById('apiStatus');
+        statusEl.className = 'api-status success';
+        statusEl.textContent = 'Using current market price';
     </script>
 </body>
 </html>
