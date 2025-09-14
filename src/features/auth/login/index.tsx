@@ -48,7 +48,7 @@ export const LoginPage = () => {
     }}>
       <Card style={{ width: 400 }}>
         <Title level={2} style={{ textAlign: "center" }}>
-          Brain Bot Documents
+          10NetZero Tools
         </Title>
         <Form
           name="login"

@@ -75,7 +75,7 @@ export const SignupPage = () => {
           Create Account
         </Title>
         <Text type="secondary" style={{ display: "block", textAlign: "center", marginBottom: 24 }}>
-          Sign up for Brain Bot Documents
+          Sign up for 10NetZero Tools
         </Text>
         
         <Form
