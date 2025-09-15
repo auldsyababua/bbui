@@ -132,14 +132,15 @@ export const ToolsGrid: React.FC = () => {
         </div>
 
         <Row gutter={[24, 24]}>
-          {tools.map((tool, index) => (
+          {tools
+            .filter((tool) => tool.status === 'active')
+            .map((tool, index) => (
             <Col xs={24} sm={12} lg={8} key={index}>
               <Card
-                hoverable={tool.status === 'active'}
+                hoverable
                 style={{
                   height: '100%',
-                  opacity: tool.status === 'coming-soon' ? 0.7 : 1,
-                  cursor: tool.status === 'active' ? 'pointer' : 'not-allowed',
+                  cursor: 'pointer',
                 }}
                 onClick={() => handleToolClick(tool)}
               >
@@ -160,18 +161,6 @@ export const ToolsGrid: React.FC = () => {
                   <div>
                     <Title level={4} style={{ marginBottom: '8px' }}>
                       {tool.title}
-                      {tool.status === 'coming-soon' && (
-                        <span
-                          style={{
-                            fontSize: '12px',
-                            marginLeft: '8px',
-                            color: '#ff7875',
-                            fontWeight: 'normal',
-                          }}
-                        >
-                          (Coming Soon)
-                        </span>
-                      )}
                     </Title>
                     <Paragraph
                       type="secondary"
