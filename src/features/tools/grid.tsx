@@ -10,6 +10,7 @@ import {
   CheckSquareOutlined,
   TeamOutlined,
   DollarOutlined,
+  ThunderboltOutlined,
 } from '@ant-design/icons';
 
 const { Title, Paragraph } = Typography;
@@ -106,6 +107,15 @@ export const ToolsGrid: React.FC = () => {
       icon: <BarChartOutlined style={{ fontSize: '24px' }} />,
       route: 'https://ops.10nz.tools',
       color: '#1890ff',
+      status: 'active',
+      external: true,
+    },
+    {
+      title: 'Off-Grid Inference Infra Calculator',
+      description: 'Calculate generator risk, BESS sizing, and data logistics for off-grid AI inference deployments.',
+      icon: <ThunderboltOutlined style={{ fontSize: '24px' }} />,
+      route: 'https://inf-calc.10nz.tools',
+      color: '#13c2c2',
       status: 'active',
       external: true,
     },
