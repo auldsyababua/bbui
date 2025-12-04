@@ -2,7 +2,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, Row, Col, Typography, Space } from 'antd';
 import {
-  FileTextOutlined,
   MessageOutlined,
   SendOutlined,
   CalculatorOutlined,

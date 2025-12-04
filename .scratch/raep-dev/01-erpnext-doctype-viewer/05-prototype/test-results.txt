@@ -1,0 +1,61 @@
+
+🚀 ERPNext API Prototype Tests
+============================================================
+🌐 API URL: https://ops.10nz.tools
+🔑 Using API Key: 01caf558...
+
+📋 TEST 1: List Available DocTypes
+============================================================
+✅ Status: 401
+📦 Response structure: [ 'exception', 'exc_type', 'exc' ]
+📊 DocTypes found: 0
+
+📋 TEST 2: Test frappe.client.get_list Method
+============================================================
+✅ Status: 401
+📦 Response structure: [ 'exception', 'exc_type', 'exc' ]
+📊 Records returned: 0
+
+📋 TEST 3: Test Pagination Parameters
+============================================================
+✅ Page 1 Status: 401
+📊 Page 1 Records: 0
+📋 Page 1 First Record: undefined
+
+✅ Page 2 Status: 401
+📊 Page 2 Records: 0
+📋 Page 2 First Record: undefined
+
+📋 TEST 4: Test Filter Syntax
+============================================================
+✅ Status: 401
+📊 Records (istable=0): 0
+
+📋 TEST 5: Check for Total Count in Response
+============================================================
+✅ Status: 401
+📦 Full response structure: {
+  "exception": "frappe.exceptions.AuthenticationError",
+  "exc_type": "AuthenticationError",
+  "exc": "[\"Traceback (most recent call last):\\n  File \\\"apps/frappe/frappe/app.py\\\", line 102, in application\\n    validate_auth()\\n  File \\\"apps/frappe/frappe/auth.py\\\", line 621, in validate_auth\\n    validate_auth_via_api_keys(authorization_header)\\n  File \\\"apps/frappe/frappe/auth.py\\\", line 687, in validate_auth_via_api_keys\\n    validate_api_key_secret(api_key, api_secret, authorization_source)\\n  File \\\"apps/frappe/frappe/auth.py\\\", line 707, in validate_api_key_secret\\n    raise frappe.AuthenticationError\\nfrappe.exceptions.AuthenticationError\\n\"]"
+}
+⚠️  Total count field not found in response
+
+📋 TEST 6: Test Permissions on Various DocTypes
+============================================================
+  Task: ❌ Status 401
+  Project: ❌ Status 401
+  User: ❌ Status 401
+  ToDo: ❌ Status 401
+  Comment: ❌ Status 401
+
+📊 TEST SUMMARY
+============================================================
+test1: ✅ PASS
+test2: ✅ PASS
+test3: ✅ PASS
+test4: ✅ PASS
+test5: ✅ PASS
+test6: ✅ PASS
+
+✨ Tests complete!

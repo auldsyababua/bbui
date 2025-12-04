@@ -1,0 +1,94 @@
+
+🚀 ERPNext API Prototype Tests
+============================================================
+🌐 API URL: https://ops.10nz.tools
+🔑 Using API Key: dbf4bb1b...
+
+📋 TEST 1: List Available DocTypes
+============================================================
+✅ Status: 200
+📦 Response structure: [ 'data' ]
+📊 DocTypes found: 10
+
+🔍 Sample DocTypes:
+  - Account (Accounts)
+  - Account Closing Balance (Accounts)
+  - Accounting Dimension (Accounts)
+  - Accounting Dimension Detail (Accounts)
+  - Accounting Dimension Filter (Accounts)
+
+📋 TEST 2: Test frappe.client.get_list Method
+============================================================
+✅ Status: 200
+📦 Response structure: [ 'message' ]
+📊 Records returned: 5
+
+🔍 Sample records:
+  - Print Heading (module: Setup, table: 0)
+  - Stock Settings (module: Stock, table: 0)
+  - Accounts Settings (module: Accounts, table: 0)
+
+📋 TEST 3: Test Pagination Parameters
+============================================================
+✅ Page 1 Status: 200
+📊 Page 1 Records: 3
+📋 Page 1 First Record: Account
+
+✅ Page 2 Status: 200
+📊 Page 2 Records: 3
+📋 Page 2 First Record: Accounting Dimension Detail
+
+📋 TEST 4: Test Filter Syntax
+============================================================
+✅ Status: 200
+📊 Records (istable=0): 5
+
+🔍 Filtered records (istable=0):
+  - About Us Settings (istable: 0)
+  - Access Log (istable: 0)
+  - Account (istable: 0)
+  - Account Closing Balance (istable: 0)
+  - Accounting Dimension (istable: 0)
+
+📋 TEST 5: Check for Total Count in Response
+============================================================
+✅ Status: 200
+📦 Full response structure: {
+  "message": [
+    {
+      "name": "Account"
+    },
+    {
+      "name": "Account Closing Balance"
+    },
+    {
+      "name": "Accounting Dimension"
+    },
+    {
+      "name": "Accounting Dimension Detail"
+    },
+    {
+      "name": "Accounting Dimension Filter"
+    }
+  ]
+}
+⚠️  Total count field not found in response
+
+📋 TEST 6: Test Permissions on Various DocTypes
+============================================================
+  Task: ✅ Accessible (1 records)
+  Project: ✅ Accessible (0 records)
+  User: ✅ Accessible (1 records)
+  ToDo: ✅ Accessible (1 records)
+  Comment: ✅ Accessible (1 records)
+
+📊 TEST SUMMARY
+============================================================
+test1: ✅ PASS
+test2: ✅ PASS
+test3: ✅ PASS
+test4: ✅ PASS
+test5: ✅ PASS
+test6: ✅ PASS
+
+✨ Tests complete!

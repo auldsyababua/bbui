@@ -13,6 +13,7 @@ import "@refinedev/antd/dist/reset.css";
 
 import { authProvider } from "./providers/authProvider";
 import { accessControlProvider } from "./providers/accessControlProvider";
+import { createERPNextDataProvider } from "./providers/erpnextDataProvider";
 import { supabaseClient } from "./utils/supabaseClient";
 import { LoginPage } from "./features/auth/login";
 import { SignupPage } from "./features/auth/signup";
@@ -21,6 +22,7 @@ import { UserList, UserShow, UserEdit } from "./features/users";
 import { AdminDashboard } from "./features/admin";
 import { ProfilePage } from "./features/profile";
 import { Homepage } from "./features/homepage";
+import { DocTypeList, DocTypeShow } from "./features/erpnext-viewer";
 import { CustomHeader } from "./components/header";
 import { logger } from "./utils/logger";
 
@@ -30,17 +32,17 @@ function App() {
     supabaseUrl: import.meta.env.VITE_SUPABASE_URL,
   });
   logger.debug('Auth provider initialized', { provider: 'supabase' });
-  
+
   // Set up performance monitoring
   React.useEffect(() => {
     const endTiming = logger.time('app.initialization');
     // Call endTiming after component mounts
     setTimeout(endTiming, 100);
   }, []);
-  
+
   // Temporary debug mode
   const debugMode = false;
-  
+
   if (debugMode) {
     return (
       <div style={{ padding: '50px', textAlign: 'center' }}>
@@ -51,12 +53,22 @@ function App() {
       </div>
     );
   }
-  
+
+  // Create ERPNext data provider
+  const erpnextProvider = createERPNextDataProvider({
+    apiUrl: import.meta.env.VITE_ERPNEXT_API_URL || 'https://ops.10nz.tools',
+    apiKey: import.meta.env.VITE_ERPNEXT_API_KEY || '',
+    apiSecret: import.meta.env.VITE_ERPNEXT_API_SECRET || '',
+  });
+
   return (
     <BrowserRouter>
       <ConfigProvider>
         <Refine
-          dataProvider={dataProvider(supabaseClient)}
+          dataProvider={{
+            default: dataProvider(supabaseClient),
+            erpnext: erpnextProvider,
+          }}
           liveProvider={liveProvider(supabaseClient)}
           authProvider={authProvider}
           accessControlProvider={accessControlProvider}
@@ -87,6 +99,16 @@ function App() {
                 label: "Admin Dashboard",
                 icon: "🛡️",
                 canDelete: false,
+              },
+            },
+            {
+              name: "DocType",
+              list: "/tools/erpnext/doctypes",
+              show: "/tools/erpnext/doctypes/:doctype",
+              meta: {
+                dataProviderName: "erpnext",
+                label: "ERPNext DocTypes",
+                hide: true, // Hide from sidebar (accessed via tools grid)
               },
             },
           ]}
@@ -139,6 +161,10 @@ function App() {
                   />
                 </div>
               } />
+              <Route path="/tools/erpnext/doctypes">
+                <Route index element={<DocTypeList />} />
+                <Route path=":doctype" element={<DocTypeShow />} />
+              </Route>
             </Route>
             <Route
               element={
