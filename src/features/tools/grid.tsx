@@ -30,14 +30,6 @@ export const ToolsGrid: React.FC = () => {
 
   const tools: Tool[] = [
     {
-      title: 'Supabase File Viewer',
-      description: 'Browse and search documents stored in the brain-bot database with hierarchical file tree navigation.',
-      icon: <FileTextOutlined style={{ fontSize: '24px' }} />,
-      route: '/documents',
-      color: '#1890ff',
-      status: 'active',
-    },
-    {
       title: 'Task Manager',
       description: 'Create and manage tasks using natural language. Powered by GPT parser for intelligent task extraction.',
       icon: <CheckSquareOutlined style={{ fontSize: '24px' }} />,
@@ -92,14 +84,6 @@ export const ToolsGrid: React.FC = () => {
       route: '/markup',
       color: '#f5222d',
       status: 'coming-soon',
-    },
-    {
-      title: 'Equity Calculator',
-      description: 'Calculate monthly distributions based on petahash rate and ownership percentage for 10NetZero shareholders.',
-      icon: <DollarOutlined style={{ fontSize: '24px' }} />,
-      route: '/equity-calculator/index.html',
-      color: '#52c41a',
-      status: 'active',
     },
     {
       title: 'Operations Management',
