@@ -1,41 +1,12 @@
-import { useGetIdentity, useLogout } from "@refinedev/core";
-import { Avatar, Button, Dropdown, Menu, Space, Typography } from "antd";
-import { UserOutlined, LogoutOutlined, SettingOutlined, HomeOutlined } from "@ant-design/icons";
+import { Button, Space, Typography } from "antd";
+import { HomeOutlined } from "@ant-design/icons";
 import { useNavigate, useLocation } from "react-router-dom";
 
-const { Text } = Typography;
-
-interface Identity {
-  id: string;
-  name?: string;
-  email?: string;
-}
+const { Title } = Typography;
 
 export const CustomHeader = () => {
-  const { data: identity } = useGetIdentity<Identity>();
-  const { mutate: logout } = useLogout();
   const navigate = useNavigate();
   const location = useLocation();
-
-  const menu = (
-    <Menu>
-      <Menu.Item
-        key="profile"
-        icon={<SettingOutlined />}
-        onClick={() => navigate("/profile")}
-      >
-        Profile
-      </Menu.Item>
-      <Menu.Divider />
-      <Menu.Item
-        key="logout"
-        icon={<LogoutOutlined />}
-        onClick={() => logout()}
-      >
-        Logout
-      </Menu.Item>
-    </Menu>
-  );
 
   return (
     <div
@@ -57,13 +28,10 @@ export const CustomHeader = () => {
           Home
         </Button>
       </Space>
-      
-      <Dropdown overlay={menu} trigger={["click"]} placement="bottomRight">
-        <Space style={{ cursor: "pointer" }}>
-          <Avatar icon={<UserOutlined />} />
-          <Text>{identity?.name || identity?.email}</Text>
-        </Space>
-      </Dropdown>
+
+      <Title level={4} style={{ margin: 0 }}>
+        FLRTS Operations Hub
+      </Title>
     </div>
   );
 };

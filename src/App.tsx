@@ -1,12 +1,10 @@
 import React from "react";
-import { Authenticated, CanAccess, Refine } from "@refinedev/core";
+import { Refine } from "@refinedev/core";
 import { ThemedLayoutV2 } from "@refinedev/antd";
 import routerBindings, {
-  CatchAllNavigate,
   DocumentTitleHandler,
   UnsavedChangesNotifier,
 } from "@refinedev/react-router-v6";
-import { dataProvider, liveProvider } from "@refinedev/supabase";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { ConfigProvider } from "antd";
 import "@refinedev/antd/dist/reset.css";
@@ -14,46 +12,11 @@ import "@refinedev/antd/dist/reset.css";
 import { authProvider } from "./providers/authProvider";
 import { accessControlProvider } from "./providers/accessControlProvider";
 import { createERPNextDataProvider } from "./providers/erpnextDataProvider";
-import { supabaseClient } from "./utils/supabaseClient";
-import { LoginPage } from "./features/auth/login";
-import { SignupPage } from "./features/auth/signup";
-import { DocumentList } from "./features/documents";
-import { UserList, UserShow, UserEdit } from "./features/users";
-import { AdminDashboard } from "./features/admin";
-import { ProfilePage } from "./features/profile";
 import { Homepage } from "./features/homepage";
 import { DocTypeList, DocTypeShow } from "./features/erpnext-viewer";
 import { CustomHeader } from "./components/header";
-import { logger } from "./utils/logger";
 
 function App() {
-  logger.info('App component rendering', {
-    environment: import.meta.env.MODE,
-    supabaseUrl: import.meta.env.VITE_SUPABASE_URL,
-  });
-  logger.debug('Auth provider initialized', { provider: 'supabase' });
-
-  // Set up performance monitoring
-  React.useEffect(() => {
-    const endTiming = logger.time('app.initialization');
-    // Call endTiming after component mounts
-    setTimeout(endTiming, 100);
-  }, []);
-
-  // Temporary debug mode
-  const debugMode = false;
-
-  if (debugMode) {
-    return (
-      <div style={{ padding: '50px', textAlign: 'center' }}>
-        <h1>BBUI App is Loading!</h1>
-        <p>If you see this, the React app is working.</p>
-        <p>Environment: {import.meta.env.MODE}</p>
-        <p>Supabase URL: {import.meta.env.VITE_SUPABASE_URL}</p>
-      </div>
-    );
-  }
-
   // Create ERPNext data provider (only if credentials are available)
   const hasERPNextCredentials = !!(
     import.meta.env.VITE_ERPNEXT_API_KEY &&
@@ -68,56 +31,35 @@ function App() {
       })
     : null;
 
+  // Create a no-op data provider for when ERPNext is not available
+  const noopDataProvider = {
+    getList: async () => ({ data: [], total: 0 }),
+    getOne: async () => ({ data: {} as any }),
+    getMany: async () => ({ data: [] }),
+    create: async () => ({ data: {} as any }),
+    update: async () => ({ data: {} as any }),
+    deleteOne: async () => ({ data: {} as any }),
+    getApiUrl: () => '',
+    custom: async () => ({ data: {} as any }),
+  };
+
+  // Use ERPNext provider if available, otherwise use no-op
+  const dataProvider = erpnextProvider || noopDataProvider;
+
   return (
     <BrowserRouter>
       <ConfigProvider>
         <Refine
-          dataProvider={
-            erpnextProvider
-              ? {
-                  default: dataProvider(supabaseClient),
-                  erpnext: erpnextProvider,
-                }
-              : dataProvider(supabaseClient)
-          }
-          liveProvider={liveProvider(supabaseClient)}
+          dataProvider={dataProvider}
           authProvider={authProvider}
           accessControlProvider={accessControlProvider}
           routerProvider={routerBindings}
           resources={[
             {
-              name: "brain_bot_documents",
-              list: "/documents",
-              show: "/documents/:id",
-              meta: {
-                label: "Documents",
-              },
-            },
-            {
-              name: "personnel",
-              list: "/personnel",
-              show: "/personnel/:id",
-              edit: "/personnel/:id/edit",
-              meta: {
-                label: "Personnel",
-                hide: true, // Hide from sidebar - only accessible to admins via routes
-              },
-            },
-            {
-              name: "admin",
-              list: "/admin",
-              meta: {
-                label: "Admin Dashboard",
-                icon: "🛡️",
-                canDelete: false,
-              },
-            },
-            {
               name: "DocType",
               list: "/tools/erpnext/doctypes",
               show: "/tools/erpnext/doctypes/:doctype",
               meta: {
-                dataProviderName: "erpnext",
                 label: "ERPNext DocTypes",
                 hide: true, // Hide from sidebar (accessed via tools grid)
               },
@@ -131,61 +73,17 @@ function App() {
           <Routes>
             <Route
               element={
-                <Authenticated
-                  key="authenticated-inner"
-                  fallback={<CatchAllNavigate to="/login" />}
-                >
-                  <ThemedLayoutV2 Header={CustomHeader}>
-                    <Outlet />
-                  </ThemedLayoutV2>
-                </Authenticated>
+                <ThemedLayoutV2 Header={CustomHeader}>
+                  <Outlet />
+                </ThemedLayoutV2>
               }
             >
-              {/* Protected routes */}
+              {/* Routes */}
               <Route index element={<Homepage />} />
-              <Route path="/documents">
-                <Route index element={<DocumentList />} />
-                <Route path=":id" element={<DocumentList />} />
-              </Route>
-              <Route path="/personnel">
-                <Route index element={<UserList />} />
-                <Route path=":id" element={<UserShow />} />
-                <Route path=":id/edit" element={<UserEdit />} />
-              </Route>
-              <Route path="/admin">
-                <Route
-                  index
-                  element={
-                    <CanAccess resource="admin" action="list" fallback={<CatchAllNavigate to="/" />}>
-                      <AdminDashboard />
-                    </CanAccess>
-                  }
-                />
-              </Route>
-              <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/equity-calculator" element={
-                <div style={{ width: '100%', height: '100vh' }}>
-                  <iframe
-                    src="/equity-calculator/index.html"
-                    style={{ width: '100%', height: '100%', border: 'none' }}
-                    title="Equity Calculator"
-                  />
-                </div>
-              } />
               <Route path="/tools/erpnext/doctypes">
                 <Route index element={<DocTypeList />} />
                 <Route path=":doctype" element={<DocTypeShow />} />
               </Route>
-            </Route>
-            <Route
-              element={
-                <Authenticated key="authenticated-outer" fallback={<Outlet />}>
-                  <CatchAllNavigate to="/" />
-                </Authenticated>
-              }
-            >
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/signup" element={<SignupPage />} />
             </Route>
           </Routes>
 
