@@ -10,6 +10,7 @@ import {
   TeamOutlined,
   DollarOutlined,
   ThunderboltOutlined,
+  DatabaseOutlined,
 } from '@ant-design/icons';
 
 const { Title, Paragraph } = Typography;
@@ -101,6 +102,15 @@ export const ToolsGrid: React.FC = () => {
       color: '#13c2c2',
       status: 'active',
       external: true,
+    },
+    {
+      title: 'ERPNext DocType Viewer',
+      description: 'Browse and view ERPNext DocTypes and records from the operations management system.',
+      icon: <DatabaseOutlined style={{ fontSize: '24px' }} />,
+      route: '/tools/erpnext/doctypes',
+      color: '#722ed1',
+      status: 'active',
+      external: false,
     },
   ];
 

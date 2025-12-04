@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  # Nginx reverse proxy for Vite dev server
+  # Exposes http://localhost:5173 to Traefik at doctype-viewer.workhorse.local
+  vite-proxy:
+    image: nginx:alpine
+    container_name: bbui-vite-proxy
+    restart: unless-stopped
+    networks:
+      - traefik_socket-proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.doctype-viewer.rule=Host(`doctype-viewer.workhorse.local`)"
+      - "traefik.http.routers.doctype-viewer.entrypoints=web"
+      - "traefik.http.services.doctype-viewer.loadbalancer.server.port=80"
+    volumes:
+      - ./nginx-vite-proxy.conf:/etc/nginx/nginx.conf:ro
+
+networks:
+  traefik_socket-proxy:
+    external: true
