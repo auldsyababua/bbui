@@ -109,7 +109,7 @@ export const ToolsGrid: React.FC = () => {
       icon: <DatabaseOutlined style={{ fontSize: '24px' }} />,
       route: '/tools/erpnext/doctypes',
       color: '#722ed1',
-      status: 'active',
+      status: import.meta.env.VITE_ERPNEXT_API_KEY ? 'active' : 'coming-soon',
       external: false,
     },
   ];

@@ -54,21 +54,32 @@ function App() {
     );
   }
 
-  // Create ERPNext data provider
-  const erpnextProvider = createERPNextDataProvider({
-    apiUrl: import.meta.env.VITE_ERPNEXT_API_URL || 'https://ops.10nz.tools',
-    apiKey: import.meta.env.VITE_ERPNEXT_API_KEY || '',
-    apiSecret: import.meta.env.VITE_ERPNEXT_API_SECRET || '',
-  });
+  // Create ERPNext data provider (only if credentials are available)
+  const hasERPNextCredentials = !!(
+    import.meta.env.VITE_ERPNEXT_API_KEY &&
+    import.meta.env.VITE_ERPNEXT_API_SECRET
+  );
+
+  const erpnextProvider = hasERPNextCredentials
+    ? createERPNextDataProvider({
+        apiUrl: import.meta.env.VITE_ERPNEXT_API_URL || 'https://ops.10nz.tools',
+        apiKey: import.meta.env.VITE_ERPNEXT_API_KEY,
+        apiSecret: import.meta.env.VITE_ERPNEXT_API_SECRET,
+      })
+    : null;
 
   return (
     <BrowserRouter>
       <ConfigProvider>
         <Refine
-          dataProvider={{
-            default: dataProvider(supabaseClient),
-            erpnext: erpnextProvider,
-          }}
+          dataProvider={
+            erpnextProvider
+              ? {
+                  default: dataProvider(supabaseClient),
+                  erpnext: erpnextProvider,
+                }
+              : dataProvider(supabaseClient)
+          }
           liveProvider={liveProvider(supabaseClient)}
           authProvider={authProvider}
           accessControlProvider={accessControlProvider}
