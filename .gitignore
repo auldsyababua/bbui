@@ -32,6 +32,12 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
+logs/
+dev.log
+*.log
+
+# Generated files
+audit-results.json
 
 # Editor directories and files
 .vscode/*
