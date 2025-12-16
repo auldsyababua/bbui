@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/srv/projects/bbui-fresh/logs/.4b79dfc9afd3b999feae473dea582e0f7c8854ca-audit.json",
+    "files": [
+        {
+            "date": 1765917702069,
+            "name": "/srv/projects/bbui-fresh/logs/mcp-puppeteer-2025-12-16.log",
+            "hash": "b627f41a883fe1b51ea2fda4d26a62a1a2812e6110a62789872b56f18b4747d1"
+        }
+    ],
+    "hashType": "sha256"
+}
