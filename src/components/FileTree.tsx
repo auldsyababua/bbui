@@ -2,7 +2,14 @@ import React, { useState, useMemo } from 'react';
 import { Tree } from 'antd';
 import { FolderOutlined, FileOutlined } from '@ant-design/icons';
 import { useList } from '@refinedev/core';
-import type { Document } from '../types/supabase';
+
+// Document type (previously from supabase types)
+interface Document {
+  id: string;
+  file_path: string;
+  content?: string;
+  [key: string]: unknown;
+}
 
 interface TreeNode {
   title: string;
