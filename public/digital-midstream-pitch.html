@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Midstream™ - Interactive Investor Pitch</title>
+    <title>Batch Inference Modeling Calculator</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -1025,7 +1025,7 @@
 
     <div class="header">
         <div class="header-inner">
-            <div class="header-title">Digital Midstream™</div>
+            <div class="header-title">Batch Inference Modeling Calculator</div>
             <div style="flex-grow: 1;">
                 <!-- Desktop navigation -->
                 <div class="chapter-nav" id="chapterNav"></div>
@@ -1035,7 +1035,7 @@
                         aria-label="Toggle navigation menu"
                         aria-expanded="false"
                         aria-controls="mobileChapterList">
-                    <span id="mobileToggleText">1 / 7</span>
+                    <span id="mobileToggleText">1 / 6</span>
                 </button>
 
                 <!-- Mobile dropdown -->
@@ -1243,18 +1243,18 @@
 
                 <div class="calculator-row">
                     <div>
-                        <label class="calculator-label">Fuel Cost ($/kWh)</label>
-                        <input type="range" id="fuelCost" min="0.015" max="0.050" step="0.001" value="0.035" class="calculator-input" style="margin-bottom: 0.5rem;" oninput="debouncedUpdateCalculator()" aria-valuenow="0.035" aria-valuetext="$0.035 per kWh">
+                        <label class="calculator-label">Fuel Cost ($/MCF)</label>
+                        <input type="range" id="fuelCost" min="0.015" max="0.050" step="0.001" value="0.035" class="calculator-input" style="margin-bottom: 0.5rem;" oninput="debouncedUpdateCalculator()" aria-valuenow="0.035" aria-valuetext="$0.035 per MCF">
                         <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--blueprint-gray);">
-                            Your cost: $<span id="fuelCostValue">0.035</span>/kWh
+                            Your cost: $<span id="fuelCostValue">0.035</span>/MCF
                         </div>
                         <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--blueprint-gray);">
-                            Grid miners: $0.05–0.08/kWh
+                            Grid miners: $0.05–0.08/MCF equiv.
                         </div>
                     </div>
                     <div>
                         <label class="calculator-label">Workload Mix</label>
-                        <input type="range" id="btcMix" min="10" max="90" step="5" value="60" class="calculator-input" style="margin-bottom: 0.5rem;" oninput="debouncedUpdateCalculator()" aria-valuenow="60" aria-valuetext="60% Bitcoin">
+                        <input type="range" id="btcMix" min="0" max="100" step="5" value="60" class="calculator-input" style="margin-bottom: 0.5rem;" oninput="debouncedUpdateCalculator()" aria-valuenow="60" aria-valuetext="60% Bitcoin">
                         <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--blueprint-gray);">
                             Bitcoin <span id="btcMixValue">60</span>% | AI <span id="aiMixValue">40</span>%
                         </div>
@@ -1290,7 +1290,7 @@
                         <span class="result-value" id="grossRevenue">$3,854,400</span>
                     </div>
                     <div class="result-row">
-                        <span id="opexLabel">Operating Costs (Fuel @ $0.035/kWh):</span>
+                        <span id="opexLabel">Operating Costs (Fuel @ $0.035/MCF):</span>
                         <span class="result-value negative" id="opexCosts"></span>
                     </div>
                     <div class="result-row total">
@@ -1645,114 +1645,19 @@
             </div>
 
             <div class="button-group">
-                <button class="btn-primary" onclick="scrollToChapter(7)">Next: The Ask →</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Chapter 7: The Ask -->
-    <div class="chapter-container" id="chapter-7">
-        <div class="chapter-content">
-            <h1>The Ask</h1>
-            <p style="font-size: 1.25rem; color: var(--blueprint-gray); margin-bottom: 2rem;">
-                Series A. Capital. Execution.
-            </p>
-
-            <h2>Investment Thesis</h2>
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin: 2rem 0;">
-                <div class="metric-card" style="text-align: center;">
-                    <div class="metric-label">THE PROBLEM</div>
-                    <div style="font-size: 1.25rem; font-weight: 600; color: var(--critical-magenta); margin: 1rem 0;">12+ BCF/day</div>
-                    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--blueprint-gray); line-height: 1.4;">
-                        Flared globally<br>
-                        $23B annual waste<br>
-                        No midstream = stranded
-                    </div>
-                </div>
-
-                <div class="metric-card" style="text-align: center;">
-                    <div class="metric-label">THE SOLUTION</div>
-                    <div style="font-size: 1.25rem; font-weight: 600; color: var(--operational-green); margin: 1rem 0;">Digital Midstream™</div>
-                    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--blueprint-gray); line-height: 1.4;">
-                        On-site compute<br>
-                        30-day deployment<br>
-                        Guaranteed offtake
-                    </div>
-                </div>
-
-                <div class="metric-card" style="text-align: center;">
-                    <div class="metric-label">THE OPPORTUNITY</div>
-                    <div style="font-size: 1.25rem; font-weight: 600; color: var(--flare-orange); margin: 1rem 0;">$30B</div>
-                    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--blueprint-gray); line-height: 1.4;">
-                        by 2035<br>
-                        First mover<br>
-                        Dual revenue
-                    </div>
-                </div>
-            </div>
-
-            <h2>Use of Funds</h2>
-            <div style="margin: 2rem 0;">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-                    <div>
-                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--blueprint-gray); text-transform: uppercase; margin-bottom: 0.5rem;">Equipment Procurement</div>
-                        <div style="width: 100%; height: 24px; background-color: var(--flare-orange); margin-bottom: 0.5rem;"></div>
-                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--blueprint-gray);">60% • Generators, BESS, ASICs</div>
-                    </div>
-                    <div>
-                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--blueprint-gray); text-transform: uppercase; margin-bottom: 0.5rem;">Site Development</div>
-                        <div style="width: 50%; height: 24px; background-color: var(--pipeline-blue); margin-bottom: 0.5rem;"></div>
-                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--blueprint-gray);">25% • Gas, electrical, permits</div>
-                    </div>
-                    <div>
-                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--blueprint-gray); text-transform: uppercase; margin-bottom: 0.5rem;">Working Capital</div>
-                        <div style="width: 20%; height: 24px; background-color: var(--digital-cyan); margin-bottom: 0.5rem;"></div>
-                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--blueprint-gray);">10% • 6-month runway</div>
-                    </div>
-                    <div>
-                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--blueprint-gray); text-transform: uppercase; margin-bottom: 0.5rem;">G&A</div>
-                        <div style="width: 8%; height: 24px; background-color: var(--generator-gray); margin-bottom: 0.5rem;"></div>
-                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--blueprint-gray);">5% • Lean team</div>
-                    </div>
-                </div>
-            </div>
-
-            <h2>Next Steps</h2>
-            <div class="stat-box">
-                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.875rem;">
-                    <div>
-                        <div style="color: var(--flare-orange); font-weight: 600; margin-bottom: 0.5rem;">[1]</div>
-                        <div>Download full economic model (Excel)</div>
-                    </div>
-                    <div>
-                        <div style="color: var(--flare-orange); font-weight: 600; margin-bottom: 0.5rem;">[2]</div>
-                        <div>Review technical whitepaper (PDF)</div>
-                    </div>
-                    <div>
-                        <div style="color: var(--flare-orange); font-weight: 600; margin-bottom: 0.5rem;">[3]</div>
-                        <div>Schedule site visit to operating location</div>
-                    </div>
-                    <div>
-                        <div style="color: var(--flare-orange); font-weight: 600; margin-bottom: 0.5rem;">[4]</div>
-                        <div>Begin JV term sheet discussion</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="metric-card" style="margin-top: 2rem;">
-                <div style="font-family: 'IBM Plex Mono', monospace; margin-bottom: 1rem;">
-                    <div style="font-size: 0.75rem; color: var(--blueprint-gray); text-transform: uppercase; margin-bottom: 0.5rem;">Colin Aulds</div>
-                    <div style="font-size: 1.125rem; font-weight: 600;">CEO, 10NetZero</div>
-                    <div style="font-size: 0.875rem; color: var(--blueprint-gray); margin-top: 0.5rem;">colin@10netzero.com</div>
-                </div>
-            </div>
-
-            <div class="button-group" style="margin-top: 2rem;">
                 <button class="btn-primary" onclick="scrollToChapter(1)">Back to Start</button>
             </div>
 
             <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--blueprint-gray); text-align: center;">
                 Data updated: <span id="dataTimestamp"></span> | Version <span id="dataVersion"></span>
+            </div>
+
+            <div class="metric-card" style="margin-top: 2rem;">
+                <div style="font-family: 'IBM Plex Mono', monospace; margin-bottom: 1rem;">
+                    <div style="font-size: 0.75rem; color: var(--blueprint-gray); text-transform: uppercase; margin-bottom: 0.5rem;">Colin Aulds</div>
+                    <div style="font-size: 1.125rem; font-weight: 600;">CBO, 10NetZero</div>
+                    <div style="font-size: 0.875rem; color: var(--blueprint-gray); margin-top: 0.5rem;">colin@10netzero.com</div>
+                </div>
             </div>
         </div>
     </div>
@@ -2701,7 +2606,6 @@
             { id: 4, title: 'Technical' },
             { id: 5, title: 'Competition' },
             { id: 6, title: 'Roadmap' },
-            { id: 7, title: 'Ask' },
         ];
 
         let currentChapter = 1;
@@ -3000,14 +2904,14 @@
                 if (fuelCost < 0.015 || fuelCost > 0.050) {
                     return {
                         field: 'fuelCost',
-                        message: 'Fuel cost must be between $0.015 and $0.050 per kWh'
+                        message: 'Fuel cost must be between $0.015 and $0.050 per MCF'
                     };
                 }
 
-                if (btcMix < 10 || btcMix > 90) {
+                if (btcMix < 0 || btcMix > 100) {
                     return {
                         field: 'btcMix',
-                        message: 'Bitcoin mix must be between 10% and 90%'
+                        message: 'Bitcoin mix must be between 0% and 100%'
                     };
                 }
 
@@ -3120,7 +3024,7 @@
             const fuelCostValue = document.getElementById('fuelCost')?.value || 0.035;
             const opexLabel = document.getElementById('opexLabel');
             if (opexLabel) {
-                opexLabel.textContent = 'Operating Costs (Fuel @ $' + parseFloat(fuelCostValue).toFixed(3) + '/kWh):';
+                opexLabel.textContent = 'Operating Costs (Fuel @ $' + parseFloat(fuelCostValue).toFixed(3) + '/MCF):';
             }
 
             // Net Revenue and Margin
@@ -3247,7 +3151,7 @@
             if (fuelCostSlider) {
                 fuelCostSlider.addEventListener('input', function() {
                     this.setAttribute('aria-valuenow', this.value);
-                    this.setAttribute('aria-valuetext', '$' + parseFloat(this.value).toFixed(3) + ' per kWh');
+                    this.setAttribute('aria-valuetext', '$' + parseFloat(this.value).toFixed(3) + ' per MCF');
                 });
             }
 
