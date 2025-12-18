@@ -11,6 +11,7 @@ import {
   DollarOutlined,
   ThunderboltOutlined,
   DatabaseOutlined,
+  RocketOutlined,
 } from '@ant-design/icons';
 
 const { Title, Paragraph } = Typography;
@@ -100,6 +101,15 @@ export const ToolsGrid: React.FC = () => {
       icon: <ThunderboltOutlined style={{ fontSize: '24px' }} />,
       route: 'https://inf-calc.10nz.tools',
       color: '#13c2c2',
+      status: 'active',
+      external: true,
+    },
+    {
+      title: 'Digital Midstream Pitch',
+      description: 'Interactive investor pitch deck for Digital Midstream - AI-powered flare gas monetization.',
+      icon: <RocketOutlined style={{ fontSize: '24px' }} />,
+      route: '/digital-midstream-pitch.html',
+      color: '#FF6B35',
       status: 'active',
       external: true,
     },
