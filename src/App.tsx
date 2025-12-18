@@ -1,4 +1,3 @@
-import React from "react";
 import { Refine } from "@refinedev/core";
 import { ThemedLayoutV2 } from "@refinedev/antd";
 import routerBindings, {
@@ -26,8 +25,8 @@ function App() {
   const erpnextProvider = hasERPNextCredentials
     ? createERPNextDataProvider({
         apiUrl: import.meta.env.VITE_ERPNEXT_API_URL || 'https://ops.10nz.tools',
-        apiKey: import.meta.env.VITE_ERPNEXT_API_KEY,
-        apiSecret: import.meta.env.VITE_ERPNEXT_API_SECRET,
+        apiKey: import.meta.env.VITE_ERPNEXT_API_KEY!,
+        apiSecret: import.meta.env.VITE_ERPNEXT_API_SECRET!,
       })
     : null;
 
