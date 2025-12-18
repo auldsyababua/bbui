@@ -12,6 +12,7 @@ import {
   ThunderboltOutlined,
   DatabaseOutlined,
   RocketOutlined,
+  GlobalOutlined,
 } from '@ant-design/icons';
 
 const { Title, Paragraph } = Typography;
@@ -110,6 +111,15 @@ export const ToolsGrid: React.FC = () => {
       icon: <RocketOutlined style={{ fontSize: '24px' }} />,
       route: '/digital-midstream-pitch.html',
       color: '#FF6B35',
+      status: 'active',
+      external: true,
+    },
+    {
+      title: '10NetZero Website',
+      description: 'Corporate website for 10NetZero - Digital Midstream solutions for Texas oil and gas operators.',
+      icon: <GlobalOutlined style={{ fontSize: '24px' }} />,
+      route: 'https://demo-website.10nz.tools',
+      color: '#1a1a2e',
       status: 'active',
       external: true,
     },
