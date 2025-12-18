@@ -1648,9 +1648,6 @@
                 <button class="btn-primary" onclick="scrollToChapter(1)">Back to Start</button>
             </div>
 
-            <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--blueprint-gray); text-align: center;">
-                Data updated: <span id="dataTimestamp"></span> | Version <span id="dataVersion"></span>
-            </div>
 
             <div class="metric-card" style="margin-top: 2rem;">
                 <div style="font-family: 'IBM Plex Mono', monospace; margin-bottom: 1rem;">
@@ -2782,28 +2779,23 @@
 
         async function fetchHashPrice() {
             try {
-                // Bitbo API - returns latest hashprice
-                // Value is in USD per PH/s per day, divide by 1000 for TH/s
-                const res = await fetch(
-                    'https://charts.bitbo.io/api/v1/hashprice/?latest=true',
-                    {
-                        headers: {
-                            'Accept': 'application/json',
-                            'Authorization': 'Bearer d601db8b61a0a7e35c623bb449c7a9d322f82cd4089280d431b550bb50cf016d'
-                        }
-                    }
-                );
-                const json = await res.json();
-                // Response: { data: [["2025-12-13", "44.536..."]] }
-                const [dateStr, pricePerPH] = json.data[0];
-                const pricePerTH = parseFloat(pricePerPH) / 1000;  // Convert PH to TH
+                // Fetch hashprice from Bitbo API
+                // Returns hashprice in $/PH/day, we need to convert to $/TH/day
+                // 1 PH = 1000 TH, so $/TH/day = $/PH/day / 1000
+                const res = await fetch('https://charts.bitbo.io/api/v1/hashprice/?latest=true');
+                const data = await res.json();
+
+                // Response format: { data: [["2025-12-18", "58.33..."]] }
+                const [dateStr, hashpricePH] = data.data[0];
+                const hashpricePerTH = parseFloat(hashpricePH) / 1000;
+
                 return {
-                    price: pricePerTH,
+                    price: hashpricePerTH,
                     timestamp: new Date(dateStr)
                 };
             } catch (e) {
-                console.warn('Hash price fetch failed, using default');
-                return { price: 0.045, timestamp: null };  // ~$45/PH = $0.045/TH
+                console.warn('Hash price fetch failed, using default:', e);
+                return { price: 0.058, timestamp: null };  // ~$58/PH = $0.058/TH (updated default)
             }
         }
 
